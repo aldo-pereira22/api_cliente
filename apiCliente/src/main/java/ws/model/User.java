@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -37,11 +38,11 @@ public class User implements Serializable{
 	@Column(name = "dt_expiration")
 	private LocalDate dtExpiration;
 	
-	@ManyToOne
+	@ManyToOne( fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_type_id")
 	private UserType userType;
 	
-	@ManyToOne
+	@ManyToOne( fetch = FetchType.LAZY)
 	@JoinColumn(name = "subscription_type_id")
 	private SubscriptionType subScriptionType;
 	
