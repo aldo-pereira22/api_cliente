@@ -1,12 +1,14 @@
 package ws.service.impl;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import ws.Repository.SubscribeTypeRepository;
 import ws.dto.SubscriptionTypeDto;
+import ws.exception.BadRequestException;
 import ws.exception.NotFoundException;
 import ws.model.SubscriptionType;
 import ws.service.SubscritionTypeService;
@@ -29,26 +31,22 @@ public class SubscriptionTypeServiceImpl implements SubscritionTypeService {
 
 	@Override
 	public SubscriptionType findById(Long id) {
-		
+
 		Optional<SubscriptionType> optionalSubscriptionType = this.subscribeTypeRepository.findById(id);
-		
-		if(optionalSubscriptionType.isEmpty()) {
-			 throw new NotFoundException("SubscriptionType não encontrado!!!");
+
+		if (optionalSubscriptionType.isEmpty()) {
+			throw new NotFoundException("SubscriptionType não encontrado!!!");
 		}
 		return optionalSubscriptionType.get();
 	}
 
-	
 	@Override
 	public SubscriptionType create(SubscriptionTypeDto dto) {
-		
-		return subscribeTypeRepository.save(SubscriptionType.builder()
-				.id(dto.getId())
-				.name(dto.getName())
-				.accecessMonth(dto.getAccessMonth())
-				.price(dto.getPrice())
-				.productKey(dto.getProductKey())
-				.build());
+		if (Objects.nonNull(dto.getId())) {
+			throw new BadRequestException("ID deve ser nulo!!!");
+		}
+		return subscribeTypeRepository.save(SubscriptionType.builder().id(dto.getId()).name(dto.getName())
+				.accecessMonth(dto.getAccessMonth()).price(dto.getPrice()).productKey(dto.getProductKey()).build());
 	}
 
 	@Override
