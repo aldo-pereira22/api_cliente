@@ -27,7 +27,7 @@ public class SubscriptionType implements Serializable {
 	
 	@Id
 	@Column(name = "subscriptions_type_id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	private String name;
@@ -37,7 +37,7 @@ public class SubscriptionType implements Serializable {
 	
 	private BigDecimal price;
 	
-	@Column(name = "product_key")
+	@Column(name = "product_key", unique = true)
 	private String productKey;
 
 

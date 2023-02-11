@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import ws.Repository.SubscribeTypeRepository;
+import ws.dto.SubscriptionTypeDto;
 import ws.exception.NotFoundException;
 import ws.model.SubscriptionType;
 import ws.service.SubscritionTypeService;
@@ -39,9 +40,15 @@ public class SubscriptionTypeServiceImpl implements SubscritionTypeService {
 
 	
 	@Override
-	public SubscriptionType create(SubscriptionType subscriptionType) {
-		// TODO Auto-generated method stub
-		return null;
+	public SubscriptionType create(SubscriptionTypeDto dto) {
+		
+		return subscribeTypeRepository.save(SubscriptionType.builder()
+				.id(dto.getId())
+				.name(dto.getName())
+				.accecessMonth(dto.getAccessMonth())
+				.price(dto.getPrice())
+				.productKey(dto.getProductKey())
+				.build());
 	}
 
 	@Override

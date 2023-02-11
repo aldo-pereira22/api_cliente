@@ -9,6 +9,7 @@ import ws.exception.NotFoundException;
 
 @RestControllerAdvice
 public class ResourceHandler {
+	
 	@ExceptionHandler(NotFoundException.class)
 	public ResponseEntity<String> notFoundException(NotFoundException n){
 		String errorMEssage = n.getMessage();

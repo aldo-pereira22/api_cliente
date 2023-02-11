@@ -2,6 +2,7 @@ package ws.service;
 
 import java.util.List;
 
+import ws.dto.SubscriptionTypeDto;
 import ws.model.SubscriptionType;
 
 public interface SubscritionTypeService {
@@ -10,7 +11,7 @@ public interface SubscritionTypeService {
 
 	SubscriptionType findById(Long id);
 
-	SubscriptionType create(SubscriptionType subscriptionType);
+	SubscriptionType create(SubscriptionTypeDto subscriptionType);
 	
 	SubscriptionType update(Long id, SubscriptionType subscriptionType);
 	
