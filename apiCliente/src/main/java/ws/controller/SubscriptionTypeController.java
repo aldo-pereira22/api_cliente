@@ -9,19 +9,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ws.Repository.SubscribeTypeRepository;
 import ws.model.SubscriptionType;
+import ws.service.impl.SubscriptionTypeServiceImpl;
 
 @RestController
 @RequestMapping("/subscription-type")
 public class SubscriptionTypeController {
 
 	@Autowired
-	private SubscribeTypeRepository subscriptionRepository;
+	private SubscriptionTypeServiceImpl subscriptionTypeServiceImpl;
 	
 	@GetMapping
 	public ResponseEntity< List<SubscriptionType>> findAll() {
-		return ResponseEntity.status(HttpStatus.OK).body(subscriptionRepository.findAll());
+		return ResponseEntity.status(HttpStatus.OK).body(subscriptionTypeServiceImpl.findAll());
 	}
 	
 }
