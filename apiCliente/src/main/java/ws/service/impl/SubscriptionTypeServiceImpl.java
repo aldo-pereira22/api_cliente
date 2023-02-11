@@ -31,14 +31,10 @@ public class SubscriptionTypeServiceImpl implements SubscritionTypeService {
 
 	@Override
 	public SubscriptionType findById(Long id) {
-
-		Optional<SubscriptionType> optionalSubscriptionType = this.subscribeTypeRepository.findById(id);
-
-		if (optionalSubscriptionType.isEmpty()) {
-			throw new NotFoundException("SubscriptionType não encontrado!!!");
-		}
-		return optionalSubscriptionType.get();
+		
+		return this.getSubscriptionType(id);
 	}
+
 
 	@Override
 	public SubscriptionType create(SubscriptionTypeDto dto) {
@@ -46,19 +42,29 @@ public class SubscriptionTypeServiceImpl implements SubscritionTypeService {
 			throw new BadRequestException("ID deve ser nulo!!!");
 		}
 		return subscribeTypeRepository.save(SubscriptionType.builder().id(dto.getId()).name(dto.getName())
-				.accecessMonth(dto.getAccessMonth()).price(dto.getPrice()).productKey(dto.getProductKey()).build());
+				.accecessMonth(dto.getAccecessMonth()).price(dto.getPrice()).productKey(dto.getProductKey()).build());
 	}
 
 	@Override
-	public SubscriptionType update(Long id, SubscriptionType subscriptionType) {
-		// TODO Auto-generated method stub
-		return null;
+	public SubscriptionType update(Long id, SubscriptionTypeDto dto) {
+		getSubscriptionType(id);
+		return subscribeTypeRepository.save(SubscriptionType.builder().id(id).name(dto.getName())
+				.accecessMonth(dto.getAccecessMonth()).price(dto.getPrice()).productKey(dto.getProductKey()).build());
 	}
 
 	@Override
 	public void delete(Long id) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	private SubscriptionType getSubscriptionType(Long id) {
+		Optional<SubscriptionType> optionalSubscriptionType = this.subscribeTypeRepository.findById(id);
+
+		if (optionalSubscriptionType.isEmpty()) {
+			throw new NotFoundException("SubscriptionType não encontrado!!!");
+		}
+		return optionalSubscriptionType.get();
 	}
 
 }

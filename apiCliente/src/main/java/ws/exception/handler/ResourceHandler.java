@@ -16,12 +16,7 @@ public class ResourceHandler {
 		String errorMEssage = n.getMessage();
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMEssage);
 	}
-	
-//	@ExceptionHandler(BadRequestException.class)
-//	public ResponseEntity<String> badRequestException(NotFoundException b){
-//		String errorMEssage = b.getMessage();
-//		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMEssage);
-//	}
+
 	
 	@ExceptionHandler(BadRequestException.class)
 	public ResponseEntity<String> badRequestException(BadRequestException b){

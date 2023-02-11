@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class SubscriptionTypeDto {
 	private Long id;
 	private String name;
-	private Long accessMonth;
+	private Long accecessMonth;
 	private BigDecimal price;
 	private String productKey;
 	
