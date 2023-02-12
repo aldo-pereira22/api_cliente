@@ -10,6 +10,7 @@ import ws.Repository.SubscribeTypeRepository;
 import ws.dto.SubscriptionTypeDto;
 import ws.exception.BadRequestException;
 import ws.exception.NotFoundException;
+import ws.mapper.SubscriptionTypeMapper;
 import ws.model.SubscriptionType;
 import ws.service.SubscritionTypeService;
 
@@ -41,15 +42,15 @@ public class SubscriptionTypeServiceImpl implements SubscritionTypeService {
 		if (Objects.nonNull(dto.getId())) {
 			throw new BadRequestException("ID deve ser nulo!!!");
 		}
-		return subscribeTypeRepository.save(SubscriptionType.builder().id(dto.getId()).name(dto.getName())
-				.accecessMonth(dto.getAccecessMonth()).price(dto.getPrice()).productKey(dto.getProductKey()).build());
+		return subscribeTypeRepository.save(SubscriptionTypeMapper.fromDtoToEntity(dto));
 	}
 
 	@Override
 	public SubscriptionType update(Long id, SubscriptionTypeDto dto) {
 		getSubscriptionType(id);
-		return subscribeTypeRepository.save(SubscriptionType.builder().id(id).name(dto.getName())
-				.accecessMonth(dto.getAccecessMonth()).price(dto.getPrice()).productKey(dto.getProductKey()).build());
+		dto.setId(id);
+		return subscribeTypeRepository.save(
+				SubscriptionTypeMapper.fromDtoToEntity(dto));
 	}
 
 	@Override
