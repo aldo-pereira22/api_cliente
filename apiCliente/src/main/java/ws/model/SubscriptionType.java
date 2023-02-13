@@ -33,7 +33,7 @@ public class SubscriptionType implements Serializable {
 	private String name;
 	
 	@Column(name = "access_months")
-	private Long accecessMonth;
+	private Long accecessMonths;
 	
 	private BigDecimal price;
 	
@@ -58,11 +58,11 @@ public class SubscriptionType implements Serializable {
 	}
 
 	public Long getAccecessMonth() {
-		return accecessMonth;
+		return accecessMonths;
 	}
 
 	public void setAccecessMonth(Long accecessMonth) {
-		this.accecessMonth = accecessMonth;
+		this.accecessMonths = accecessMonth;
 	}
 
 	public BigDecimal getPrice() {
