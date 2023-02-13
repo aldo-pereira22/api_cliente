@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Service;
 
 import ws.Repository.SubscribeTypeRepository;
+import ws.controller.SubscriptionTypeController;
 import ws.dto.SubscriptionTypeDto;
 import ws.exception.BadRequestException;
 import ws.exception.NotFoundException;
@@ -17,6 +19,8 @@ import ws.service.SubscritionTypeService;
 @Service
 public class SubscriptionTypeServiceImpl implements SubscritionTypeService {
 
+	private static final String UPDATE = "UPDATE";
+	private static final String DELETE = "DELETE";
 	private SubscribeTypeRepository subscribeTypeRepository;
 
 	public SubscriptionTypeServiceImpl(SubscribeTypeRepository subscribeTypeRepository) {
@@ -33,7 +37,15 @@ public class SubscriptionTypeServiceImpl implements SubscritionTypeService {
 	@Override
 	public SubscriptionType findById(Long id) {
 		
-		return this.getSubscriptionType(id);
+		return this.getSubscriptionType(id)
+				.add(WebMvcLinkBuilder.linkTo(
+					WebMvcLinkBuilder.methodOn(SubscriptionTypeController.class).findById(id)).withSelfRel()
+				).add(WebMvcLinkBuilder.linkTo(
+						WebMvcLinkBuilder.methodOn(SubscriptionTypeController.class).update(id, new SubscriptionTypeDto())).withRel(UPDATE)
+						).add(WebMvcLinkBuilder.linkTo(
+								WebMvcLinkBuilder.methodOn(SubscriptionTypeController.class).delete(id)).withRel(DELETE)
+								)
+				;
 	}
 
 

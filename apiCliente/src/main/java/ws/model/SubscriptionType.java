@@ -2,7 +2,8 @@ package ws.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDate;
+
+import org.springframework.hateoas.RepresentationModel;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,15 +14,17 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "subscriptions_type")
-public class SubscriptionType implements Serializable {
+public class SubscriptionType extends RepresentationModel<SubscriptionType> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
