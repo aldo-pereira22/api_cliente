@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import ws.dto.SubscriptionTypeDto;
 import ws.model.SubscriptionType;
 import ws.service.impl.SubscriptionTypeServiceImpl;
@@ -38,7 +39,7 @@ public class SubscriptionTypeController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<SubscriptionType> create(@RequestBody SubscriptionTypeDto dto){
+	public ResponseEntity<SubscriptionType> create(@Valid @RequestBody SubscriptionTypeDto dto){
 			return ResponseEntity.status(HttpStatus.CREATED).body(subscriptionTypeServiceImpl.create(dto));
 	}
 	
