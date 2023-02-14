@@ -11,9 +11,11 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ws.model.SubscriptionType;
 import ws.model.UserType;
 
+@NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
@@ -36,7 +38,7 @@ public class UserDto {
 	
 
 	private LocalDate dtSubscription = LocalDate.now();
-
+	
 	private LocalDate dtExpiration =  LocalDate.now();
 	
 	

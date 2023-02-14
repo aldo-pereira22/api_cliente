@@ -7,6 +7,8 @@ import ws.model.UserType;
 
 public class UserMapper {
 	public static User fromDtoToEntity(UserDto dto, UserType userType, SubscriptionType subscriptionType) {
+		
+		System.out.println("\n\n\nDATAAA: "+dto.getDtExpiration() +"\n\n\n");
 		return User.builder()
 				.id(dto.getId())
 				.name(dto.getName())

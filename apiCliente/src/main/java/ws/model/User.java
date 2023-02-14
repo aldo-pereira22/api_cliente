@@ -28,7 +28,7 @@ public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO )
+	@GeneratedValue(strategy = GenerationType.IDENTITY )
 	private Long id;
 	
 	private String name;
@@ -50,7 +50,7 @@ public class User implements Serializable{
 	private UserType userType;
 	
 	@ManyToOne( fetch = FetchType.LAZY)
-	@JoinColumn(name = "subscription_type_id")
+	@JoinColumn(name = "subscriptions_type_id")
 	private SubscriptionType subScriptionType;
 	
 	
