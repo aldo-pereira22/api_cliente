@@ -12,8 +12,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ws.model.SubscriptionType;
-import ws.model.UserType;
 
 @NoArgsConstructor
 @AllArgsConstructor
