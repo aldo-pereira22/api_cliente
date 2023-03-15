@@ -35,9 +35,11 @@ public class UserDto {
 	@CPF(message = "Inválido")
 	private String cpf;
 	
-
+	
+	@Builder.Default
 	private LocalDate dtSubscription = LocalDate.now();
 	
+	@Builder.Default
 	private LocalDate dtExpiration =  LocalDate.now();
 	
 	
