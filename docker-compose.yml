@@ -1,0 +1,34 @@
+version: '3.1'
+
+services:
+
+  rasmoo_mysql:
+    image: mysql
+    ports:
+      - 3305:3306
+      # NOTE: use of "mysql_native_password" is not recommended: https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html#upgrade-caching-sha2-password
+      # (this is just an example, not intended to be a production configuration)
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: rasplus
+      MYSQL_USER: rasmoo
+      MYSQL_PASSWORD: 123456
+    volumes:
+      - mysql_data_container:/data/db
+
+  mongo_rasmo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo_data_container:/data/db
+
+volumes:
+  mysql_data_container:
+  mongo_data_container:

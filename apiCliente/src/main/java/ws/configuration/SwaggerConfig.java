@@ -37,9 +37,9 @@ public class SwaggerConfig {
 
         return apiInfoBuilder
                 .title("Rasmoo Plus")
-                .description("Api para atender o client Rasmoo Plus")
+                .description("Api para atender o cadastro de alunos de CURSOS")
                 .version("0.0.1")
-                .license("Rasmoo cursos de tecnologia")
+                .license("Curso de Tecnologiia de Informação")
                 .build();
     }
 }
