@@ -15,6 +15,6 @@ public class WsRaspayIntegrationImplTest {
 	@Test
 	void createCustomerWhenDtoOk() {
 		CustomerDto dto = new CustomerDto(null,"436.721.710-85", "teste@teste","Aldo", "Pereira");
-		wsRaspayIntegration.createCustomer(dto);
+		System.out.println("\n\n\n\n\n"+wsRaspayIntegration.createCustomer(dto)+"\n\n\n\n");
 	}
 }
