@@ -62,8 +62,20 @@ public class WsRaspayIntegrationImpl implements WsRaspayIntegration {
 
 	@Override
 	public Boolean processPayment(PaymentDto dto) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			
+			HttpEntity<PaymentDto> request = new HttpEntity<>(dto, this.headers);
+			
+			ResponseEntity<Boolean> response = restTemplate.exchange(
+					"https://ws-raspay.herokuapp.com/ws-raspay/v1/payment/credit-card/", HttpMethod.POST, request,
+					Boolean.class);
+			System.out.println("BODY"+ response.getBody());
+			return response.getBody();
+
+		} catch (Exception e) {
+			throw e;
+		}
+
 	}
 	
 	private HttpHeaders getHttpHeaders() {

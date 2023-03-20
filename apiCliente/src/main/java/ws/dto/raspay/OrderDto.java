@@ -12,13 +12,13 @@ import lombok.NoArgsConstructor;
 public class OrderDto {
 	private String id;
 	private String customerId;
-	private BigDecimal dicount;
+	private BigDecimal discount;
 	private String productAcronym;
 	
-	public OrderDto(String customerId, BigDecimal dicount, String productAcronym, String string) {
+	public OrderDto(String customerId, BigDecimal discount, String productAcronym, String string) {
 		super();
 		this.customerId = customerId;
-		this.dicount = dicount;
+		this.discount = discount;
 		this.productAcronym = productAcronym;
 	}
 	
