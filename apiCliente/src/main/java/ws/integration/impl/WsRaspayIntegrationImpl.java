@@ -1,5 +1,6 @@
 package ws.integration.impl;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -15,6 +16,16 @@ import ws.integration.WsRaspayIntegration;
 @Component
 public class WsRaspayIntegrationImpl implements WsRaspayIntegration {
 
+    @Value("${webservices.raspay.host}")
+    private String raspayHost;
+    @Value("${webservices.raspay.v1.customer}")
+    private String customerUrl;
+    @Value("${webservices.raspay.v1.order}")
+    private String orderUrl;
+    @Value("${webservices.raspay.v1.payment}")
+    private String paymentUrl;
+	
+	
 	private final RestTemplate restTemplate;
 	private final HttpHeaders headers;
 	
@@ -31,7 +42,7 @@ public class WsRaspayIntegrationImpl implements WsRaspayIntegration {
 			HttpEntity<CustomerDto> request = new HttpEntity<>(dto, this.headers);
 			
 			ResponseEntity<CustomerDto> response = restTemplate.exchange(
-					"https://ws-raspay.herokuapp.com/ws-raspay/v1/customer", HttpMethod.POST, request,
+					raspayHost+customerUrl, HttpMethod.POST, request,
 					CustomerDto.class);
 			
 			return response.getBody();
@@ -50,7 +61,7 @@ public class WsRaspayIntegrationImpl implements WsRaspayIntegration {
 			HttpEntity<OrderDto> request = new HttpEntity<>(dto, this.headers);
 			
 			ResponseEntity<OrderDto> response = restTemplate.exchange(
-					"https://ws-raspay.herokuapp.com/ws-raspay/v1/order", HttpMethod.POST, request,
+					raspayHost+orderUrl, HttpMethod.POST, request,
 					OrderDto.class);
 			System.out.println("BODY"+ response.getBody());
 			return response.getBody();
@@ -67,7 +78,7 @@ public class WsRaspayIntegrationImpl implements WsRaspayIntegration {
 			HttpEntity<PaymentDto> request = new HttpEntity<>(dto, this.headers);
 			
 			ResponseEntity<Boolean> response = restTemplate.exchange(
-					"https://ws-raspay.herokuapp.com/ws-raspay/v1/payment/credit-card/", HttpMethod.POST, request,
+					raspayHost+paymentUrl, HttpMethod.POST, request,
 					Boolean.class);
 			System.out.println("BODY"+ response.getBody());
 			return response.getBody();
