@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import ws.dto.error.ErrorResponseDto;
 import ws.exception.BadRequestException;
+import ws.exception.BusinessException;
 import ws.exception.NotFoundException;
 
 @RestControllerAdvice
@@ -39,6 +40,16 @@ public class ResourceHandler {
 				.message(b.getMessage())
 				.httpStatus(HttpStatus.BAD_REQUEST)
 				.statusCode(HttpStatus.BAD_REQUEST.value())
+				.build());
+	}
+	
+	@ExceptionHandler(BusinessException.class)
+	public ResponseEntity<ErrorResponseDto> badRequestException(BusinessException b){
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(
+				ErrorResponseDto.builder()
+				.message(b.getMessage())
+				.httpStatus(HttpStatus.CONFLICT)
+				.statusCode(HttpStatus.CONFLICT.value())
 				.build());
 	}
 	
