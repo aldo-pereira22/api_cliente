@@ -52,7 +52,7 @@ public class WsRaspayIntegrationImpl implements WsRaspayIntegration {
 			ResponseEntity<OrderDto> response = restTemplate.exchange(
 					"https://ws-raspay.herokuapp.com/ws-raspay/v1/order", HttpMethod.POST, request,
 					OrderDto.class);
-			
+			System.out.println("BODY"+ response.getBody());
 			return response.getBody();
 
 		} catch (Exception e) {

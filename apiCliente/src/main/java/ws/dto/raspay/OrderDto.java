@@ -15,4 +15,12 @@ public class OrderDto {
 	private BigDecimal dicount;
 	private String productAcronym;
 	
+	public OrderDto(String customerId, BigDecimal dicount, String productAcronym, String string) {
+		super();
+		this.customerId = customerId;
+		this.dicount = dicount;
+		this.productAcronym = productAcronym;
+	}
+	
+	
 }
