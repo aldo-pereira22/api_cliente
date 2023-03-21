@@ -8,9 +8,12 @@ import org.springframework.stereotype.Service;
 import ws.Repository.UserPaymentInfoRepository;
 import ws.Repository.UserRepository;
 import ws.dto.PaymentProcessDto;
+import ws.dto.raspay.CustomerDto;
 import ws.exception.BusinessException;
 import ws.exception.NotFoundException;
+import ws.integration.WsRaspayIntegration;
 import ws.mapper.UserPaymentInfoMapper;
+import ws.mapper.wsraspay.CustomerMapper;
 import ws.model.User;
 import ws.model.UserPaymentinfo;
 import ws.service.PaymentInfoService;
@@ -21,8 +24,10 @@ public class PaymentInfoServiceImpl implements PaymentInfoService {
 	private final UserRepository userRepository;
 	
 	private final UserPaymentInfoRepository userPaymentInfoRepository;
+	private final WsRaspayIntegration wsRaspayIntegration;
 	
-	public PaymentInfoServiceImpl(UserRepository  userRepository, UserPaymentInfoRepository userPaymentInfoRepository) {
+	public PaymentInfoServiceImpl(UserRepository  userRepository, UserPaymentInfoRepository userPaymentInfoRepository, WsRaspayIntegration wsRaspayIntegration) {
+		this.wsRaspayIntegration = wsRaspayIntegration;
 		this.userRepository = userRepository;
 		this.userPaymentInfoRepository = userPaymentInfoRepository;
 	}
@@ -43,6 +48,8 @@ public class PaymentInfoServiceImpl implements PaymentInfoService {
 
 		
 //		Cria ou atualiza usuario Raspay
+		CustomerDto customerDto =   wsRaspayIntegration.createCustomer(CustomerMapper.build(user));
+		
 //		Cria o pedido de pagamento
 //		Processa o pagamento
 		
