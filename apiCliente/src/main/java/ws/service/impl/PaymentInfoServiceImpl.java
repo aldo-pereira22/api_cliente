@@ -9,11 +9,13 @@ import ws.Repository.UserPaymentInfoRepository;
 import ws.Repository.UserRepository;
 import ws.dto.PaymentProcessDto;
 import ws.dto.raspay.CustomerDto;
+import ws.dto.raspay.OrderDto;
 import ws.exception.BusinessException;
 import ws.exception.NotFoundException;
 import ws.integration.WsRaspayIntegration;
 import ws.mapper.UserPaymentInfoMapper;
 import ws.mapper.wsraspay.CustomerMapper;
+import ws.mapper.wsraspay.OrderMapper;
 import ws.model.User;
 import ws.model.UserPaymentinfo;
 import ws.service.PaymentInfoService;
@@ -51,6 +53,7 @@ public class PaymentInfoServiceImpl implements PaymentInfoService {
 		CustomerDto customerDto =   wsRaspayIntegration.createCustomer(CustomerMapper.build(user));
 		
 //		Cria o pedido de pagamento
+		OrderDto orderDto = wsRaspayIntegration.createOrder(OrderMapper.build(customerDto.getId(),dto));
 //		Processa o pagamento
 		
 //		Salvar informações de pagamento
