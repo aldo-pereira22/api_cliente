@@ -10,12 +10,15 @@ import ws.Repository.UserRepository;
 import ws.dto.PaymentProcessDto;
 import ws.dto.raspay.CustomerDto;
 import ws.dto.raspay.OrderDto;
+import ws.dto.raspay.PaymentDto;
 import ws.exception.BusinessException;
 import ws.exception.NotFoundException;
 import ws.integration.WsRaspayIntegration;
 import ws.mapper.UserPaymentInfoMapper;
+import ws.mapper.wsraspay.CreditCardMapper;
 import ws.mapper.wsraspay.CustomerMapper;
 import ws.mapper.wsraspay.OrderMapper;
+import ws.mapper.wsraspay.PaymentMapper;
 import ws.model.User;
 import ws.model.UserPaymentinfo;
 import ws.service.PaymentInfoService;
@@ -54,11 +57,19 @@ public class PaymentInfoServiceImpl implements PaymentInfoService {
 		
 //		Cria o pedido de pagamento
 		OrderDto orderDto = wsRaspayIntegration.createOrder(OrderMapper.build(customerDto.getId(),dto));
-//		Processa o pagamento
 		
-//		Salvar informações de pagamento
-		UserPaymentinfo userPaymentInfo = UserPaymentInfoMapper.fromDtoToEntity(dto.getUserPaymentInfoDto(), user);
-		userPaymentInfoRepository.save(userPaymentInfo);
+		
+//		Processa o pagamento
+		PaymentDto paymentDto = PaymentMapper.build(customerDto.getId(), orderDto.getId(),CreditCardMapper.build(dto.getUserPaymentInfoDto(), user.getCpf()));
+		Boolean successPayment =  wsRaspayIntegration.processPayment(paymentDto);
+		
+		if(successPayment) {
+//			Salvar informações de pagamento
+			UserPaymentinfo userPaymentInfo = UserPaymentInfoMapper.fromDtoToEntity(dto.getUserPaymentInfoDto(), user);
+			userPaymentInfoRepository.save(userPaymentInfo);
+		}
+		
+
 //		Enviar email de criação de conta
 //		retorna o sucesso ou não do pagamento
 		return null;

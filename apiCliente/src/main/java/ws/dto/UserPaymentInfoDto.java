@@ -42,5 +42,7 @@ public class UserPaymentInfoDto {
 
 	@NotNull(message = "Deve ser informado")
 	private Long userId;
+	
+	private Long installments;
 
 }
