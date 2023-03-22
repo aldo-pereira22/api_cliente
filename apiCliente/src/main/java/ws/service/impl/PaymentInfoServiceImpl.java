@@ -13,6 +13,7 @@ import ws.dto.raspay.OrderDto;
 import ws.dto.raspay.PaymentDto;
 import ws.exception.BusinessException;
 import ws.exception.NotFoundException;
+import ws.integration.MailIntegration;
 import ws.integration.WsRaspayIntegration;
 import ws.mapper.UserPaymentInfoMapper;
 import ws.mapper.wsraspay.CreditCardMapper;
@@ -30,11 +31,14 @@ public class PaymentInfoServiceImpl implements PaymentInfoService {
 	
 	private final UserPaymentInfoRepository userPaymentInfoRepository;
 	private final WsRaspayIntegration wsRaspayIntegration;
+	private final MailIntegration mailIntegration;
 	
-	public PaymentInfoServiceImpl(UserRepository  userRepository, UserPaymentInfoRepository userPaymentInfoRepository, WsRaspayIntegration wsRaspayIntegration) {
+	public PaymentInfoServiceImpl(UserRepository  userRepository, UserPaymentInfoRepository userPaymentInfoRepository,
+			WsRaspayIntegration wsRaspayIntegration,MailIntegration mailIntegration) {
 		this.wsRaspayIntegration = wsRaspayIntegration;
 		this.userRepository = userRepository;
 		this.userPaymentInfoRepository = userPaymentInfoRepository;
+		this.mailIntegration = mailIntegration;
 	}
 	
 	@Override
@@ -67,6 +71,7 @@ public class PaymentInfoServiceImpl implements PaymentInfoService {
 //			Salvar informações de pagamento
 			UserPaymentinfo userPaymentInfo = UserPaymentInfoMapper.fromDtoToEntity(dto.getUserPaymentInfoDto(), user);
 			userPaymentInfoRepository.save(userPaymentInfo);
+			mailIntegration.send(user.getEmail(), "Usuário: %S"+user.getEmail()+ "- Senha: aluno", "Acesso liberado!");
 		}
 		
 

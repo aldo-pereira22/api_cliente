@@ -20,7 +20,7 @@ public class MailIntegrationImplTest {
 	@Test
 	void createCustomerWhenDtoOk() {
 
-		mailIntegration.send("rasmoocontateste@gmail.com", "Olá Gmail");
+		mailIntegration.send("aldo.dev22@gmail.com", "Olá Gmail", "Acesso Liberado!");
 	}
 
 }
